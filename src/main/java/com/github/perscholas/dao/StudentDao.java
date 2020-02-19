@@ -22,7 +22,7 @@ public interface StudentDao {
      * @param studentEmail - student's email to be parsed
      * @return the student list of a Student with respective `studentEmail`
      */
-    StudentInterface getStudentByEmail(String studentEmail);
+    StudentInterface getStudentByEmail(String studentEmail) throws SQLException;
 
     /**
      * This method takes two parameters: the first one is the user email and the second one is the password from the user input.

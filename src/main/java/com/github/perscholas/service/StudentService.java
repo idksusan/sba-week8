@@ -27,7 +27,7 @@ public class StudentService implements StudentDao {
 
     @Override
     public List<StudentInterface> getAllStudents() throws SQLException {
-        ResultSet result = dbc.executeQuery("SELECT * FROM students");
+        ResultSet result = dbc.executeQuery("SELECT * FROM `student`");
         List<StudentInterface> list = new ArrayList<>();
         try {
             while (result.next()) {
@@ -43,12 +43,26 @@ public class StudentService implements StudentDao {
     }
 
     @Override
-    public StudentInterface getStudentByEmail(String studentEmail) {
+    public StudentInterface getStudentByEmail(String studentEmail) throws SQLException {
+        ResultSet result = dbc.executeQuery("SELECT * FROM `student` WHERE `email` = '"+ studentEmail +"'");
+        List<StudentService> list = new ArrayList<>();
+        try {
+            while (result.next()) {
+                studentEmail = result.getString("email");
+                String name = result.getString("name");
+                String password = result.getString("password");
+                StudentInterface student = new Student(studentEmail, name, password);
+            }
+        } catch (SQLException se) {
+            throw new Error(se);
+        }
+
         return null;
     }
 
     @Override
     public Boolean validateStudent(String studentEmail, String password) {
+        
         return null;
     }
 
