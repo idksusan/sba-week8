@@ -3,6 +3,7 @@ package com.github.perscholas.dao;
 import com.github.perscholas.model.CourseInterface;
 import com.github.perscholas.model.StudentInterface;
 
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -14,7 +15,7 @@ public interface StudentDao {
      * reads the student table in database
      * @return database data as a List<Student>
      */
-    List<StudentInterface> getAllStudents();
+    List<StudentInterface> getAllStudents() throws SQLException;
 
     /**
      * takes a Student’s email as a String and parses the student list for a Student with that email and returns a Student Object.

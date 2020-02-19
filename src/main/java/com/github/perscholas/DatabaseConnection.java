@@ -1,5 +1,6 @@
 package com.github.perscholas;
 
+import javax.swing.plaf.nimbus.State;
 import java.sql.*;
 
 public enum DatabaseConnection {
@@ -37,13 +38,10 @@ public enum DatabaseConnection {
         }
     }
 
-    public ResultSet executeQuery(String sqlQuery) {
-        try {
-            Statement statement = getScrollableStatement();
-            return statement.executeQuery(sqlQuery);
-        } catch (SQLException e) {
-            throw new Error(e);
-        }
+    public ResultSet executeQuery(String sqlQuery) throws SQLException{
+        Connection connection = DatabaseConnection.MARIADB.getConnection();
+        Statement statement = connection.createStatement();
+        return statement.executeQuery(sqlQuery);
     }
 
     private Statement getScrollableStatement() {

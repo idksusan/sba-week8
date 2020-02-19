@@ -21,12 +21,12 @@ public class StudentService implements StudentDao {
     }
 
     public StudentService() {
-        this(DatabaseConnection.MYSQL);
+        this(DatabaseConnection.MARIADB);
     }
 
 
     @Override
-    public List<StudentInterface> getAllStudents() {
+    public List<StudentInterface> getAllStudents() throws SQLException {
         ResultSet result = dbc.executeQuery("SELECT * FROM students");
         List<StudentInterface> list = new ArrayList<>();
         try {

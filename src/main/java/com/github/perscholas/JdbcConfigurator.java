@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class JdbcConfigurator {
-    public static void initialize() throws ClassNotFoundException {
+    public static void initialize() throws ClassNotFoundException, SQLException {
 //        registerJdbcDriver();
 //        createDatabase();
 //        useDatabase();
@@ -54,7 +54,7 @@ public class JdbcConfigurator {
 //        DatabaseConnection.MYSQL.executeStatement(creationStatement);
 //    }
 
-    private static void useDatabaseSchema() {
+    private static void useDatabaseSchema() throws SQLException {
         for (String sqlStatement : buildDatabaseSchema()){
             DatabaseConnection.MARIADB.executeQuery(sqlStatement);
         }
@@ -66,9 +66,9 @@ public class JdbcConfigurator {
 
     private static List<String> buildDatabaseSchema() {
         List<String> schemaList = new ArrayList<>();
-        schemaList.add("DROP DATABASE IF EXISTS SBA_week8;");
-        schemaList.add("create database SBA_week8;");
-        schemaList.add("use SBA_week8;");
+        schemaList.add("DROP DATABASE IF EXISTS class_management;");
+        schemaList.add("create database class_management;");
+        schemaList.add("use class_management;");
         schemaList.add("CREATE TABLE student (" +
                 "email VARCHAR(50) NOT NULL," +
                 "name VARCHAR(50) NOT NULL," +

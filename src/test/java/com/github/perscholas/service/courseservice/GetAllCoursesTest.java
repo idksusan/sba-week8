@@ -5,6 +5,7 @@ import com.github.perscholas.utils.DirectoryReference;
 import org.junit.Before;
 
 import java.io.File;
+import java.sql.SQLException;
 
 /**
  * @author leonhunter
@@ -27,7 +28,7 @@ public class GetAllCoursesTest {
     }
 
     // given
-    private void test() {
+    private void test() throws SQLException, ClassNotFoundException {
         JdbcConfigurator.initialize();
 
         // when

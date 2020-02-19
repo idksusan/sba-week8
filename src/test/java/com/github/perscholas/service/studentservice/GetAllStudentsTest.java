@@ -8,6 +8,7 @@ import com.github.perscholas.utils.DirectoryReference;
 import org.junit.Before;
 
 import java.io.File;
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -32,7 +33,7 @@ public class GetAllStudentsTest {
 
     // given
     // TODO - Add `@Test` annotation
-    public void test() {
+    public void test() throws SQLException, ClassNotFoundException {
         JdbcConfigurator.initialize();
         StudentDao service = (StudentDao) new StudentService();
 
