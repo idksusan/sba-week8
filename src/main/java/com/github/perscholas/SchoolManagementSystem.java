@@ -4,6 +4,7 @@ import com.github.perscholas.dao.StudentDao;
 import com.github.perscholas.service.StudentService;
 import com.github.perscholas.utils.IOConsole;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +18,12 @@ public class SchoolManagementSystem implements Runnable {
             StudentDao studentService = new StudentService(DatabaseConnection.MARIADB); // TODO - get literal value
             String studentEmail = console.getStringInput("Enter your email:");
             String studentPassword = console.getStringInput("Enter your password:");
-            Boolean isValidLogin = studentService.validateStudent(studentEmail, studentPassword);
+            Boolean isValidLogin = null;
+            try {
+                isValidLogin = studentService.validateStudent(studentEmail, studentPassword);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
             if (isValidLogin) {
                 String studentDashboardInput = getStudentDashboardInput();
                 if ("register".equals(studentDashboardInput)) {

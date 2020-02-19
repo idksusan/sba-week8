@@ -30,7 +30,7 @@ public interface StudentDao {
      * @param password - password student uses to log in
      * @return `true` if a student was found; else `false`
      */
-    Boolean validateStudent(String studentEmail, String password);
+    Boolean validateStudent(String studentEmail, String password) throws SQLException;
 
     /**
      * After a successful student validation, this method takes a Student’s email and a Course ID.

@@ -52,18 +52,23 @@ public class StudentService implements StudentDao {
                 String name = result.getString("name");
                 String password = result.getString("password");
                 StudentInterface student = new Student(studentEmail, name, password);
+                return student;
             }
         } catch (SQLException se) {
             throw new Error(se);
         }
-
         return null;
     }
 
     @Override
-    public Boolean validateStudent(String studentEmail, String password) {
-        
-        return null;
+    public Boolean validateStudent(String studentEmail, String password) throws SQLException {
+        StudentInterface studentLogin = getStudentByEmail(studentEmail);
+
+        if (studentLogin.getPassword().equals(password)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override
