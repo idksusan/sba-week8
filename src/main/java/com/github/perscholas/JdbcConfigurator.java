@@ -66,19 +66,28 @@ public class JdbcConfigurator {
 
     private static List<String> buildDatabaseSchema() {
         List<String> schemaList = new ArrayList<>();
+
         schemaList.add("DROP DATABASE IF EXISTS class_management;");
         schemaList.add("create database class_management;");
         schemaList.add("use class_management;");
+
         schemaList.add("CREATE TABLE student (" +
                 "email VARCHAR(50) NOT NULL," +
                 "name VARCHAR(50) NOT NULL," +
                 "PASSWORD VARCHAR(50) NOT NULL," +
                 "PRIMARY KEY (email));");
+
         schemaList.add("CREATE TABLE course (" +
                 "id INT NOT NULL," +
                 "NAME VARCHAR(50) NOT NULL," +
                 "instructor VARCHAR(50) NOT NULL," +
                 "PRIMARY KEY(id));");
+
+        schemaList.add("CREATE TABLE studentregistration ("
+                + "email VARCHAR(50) NOT NULL,"
+                + "id INT NOT NULL,"
+                + "PRIMARY KEY (email, id))");
+
         schemaList.add("insert into Course (id, name, instructor) values (1, 'English', 'Anderea Scamaden');");
         schemaList.add("insert into Course (id, name, instructor) values (2, 'Mathematics', 'Eustace Niemetz');");
         schemaList.add("insert into Course (id, name, instructor) values (3, 'Anatomy', 'Reynolds Pastor');");
