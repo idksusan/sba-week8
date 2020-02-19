@@ -6,7 +6,6 @@ import com.github.perscholas.model.CourseInterface;
 import com.github.perscholas.model.Student;
 import com.github.perscholas.model.StudentInterface;
 
-import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -64,16 +63,14 @@ public class StudentService implements StudentDao {
     public Boolean validateStudent(String studentEmail, String password) throws SQLException {
         StudentInterface studentLogin = getStudentByEmail(studentEmail);
 
-        if (studentLogin.getPassword().equals(password)) {
-            return true;
-        } else {
-            return false;
-        }
+        return studentLogin.getPassword().equals(password);
     }
 
     @Override
     public void registerStudentToCourse(String studentEmail, int courseId) {
-
+        dbc.executeStatement("insert into Studentregistration(email, id) values('"
+                + studentEmail + "', '"
+                + courseId + "'");
     }
 
     @Override

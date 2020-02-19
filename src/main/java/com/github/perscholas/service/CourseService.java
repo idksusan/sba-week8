@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 // TODO - Implement respective DAO interface
 public class CourseService implements CourseDao {
@@ -33,5 +34,12 @@ public class CourseService implements CourseDao {
             throw new Error(se);
         }
         return list;
+    }
+
+    public List<Integer> getAllCourseIds() throws SQLException {
+        return getAllCourses()
+                .stream()
+                .map(CourseInterface::getId)
+                .collect(Collectors.toList());
     }
 }

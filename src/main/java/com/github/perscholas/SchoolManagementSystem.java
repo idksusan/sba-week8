@@ -1,12 +1,14 @@
 package com.github.perscholas;
 
 import com.github.perscholas.dao.StudentDao;
+import com.github.perscholas.service.CourseService;
 import com.github.perscholas.service.StudentService;
 import com.github.perscholas.utils.IOConsole;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class SchoolManagementSystem implements Runnable {
     private static final IOConsole console = new IOConsole();
@@ -27,7 +29,12 @@ public class SchoolManagementSystem implements Runnable {
             if (isValidLogin) {
                 String studentDashboardInput = getStudentDashboardInput();
                 if ("register".equals(studentDashboardInput)) {
-                    Integer courseId = getCourseRegistryInput();
+                    Integer courseId = null;
+                    try {
+                        courseId = getCourseRegistryInput();
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
                     studentService.registerStudentToCourse(studentEmail, courseId);
                 }
             }
@@ -51,8 +58,10 @@ public class SchoolManagementSystem implements Runnable {
     }
 
 
-    private Integer getCourseRegistryInput() {
-        List<Integer> listOfCoursesIds = new ArrayList<>();
+    private Integer getCourseRegistryInput() throws SQLException {
+        CourseService courseService = new CourseService();
+        List<Integer> listOfCoursesIds = courseService.getAllCourses().stream().map(c -> c.getId()).collect(Collectors.toList());
+
         return console.getIntegerInput(new StringBuilder()
                 .append("Welcome to the Course Registration Dashboard!")
                 .append("\nFrom here, you can select any of the following options:")
