@@ -3,17 +3,28 @@ package com.github.perscholas;
 import java.sql.*;
 
 public enum DatabaseConnection {
-    MYSQL;
+    MARIADB;
 
     public Connection getConnection() {
+        return getConnection(name().toLowerCase());
+    }
+
+    public Connection getConnection(String dbVendor) {
         String username = "root";
         String password = "";
-        String dbVendor = name().toLowerCase();
+        String database = "class_management";
         String url = "jdbc:" + dbVendor + "://127.0.0.1/";
         try {
-            return DriverManager.getConnection(url, username, password);
+            Connection connection = DriverManager.getConnection(url + database, username, password);
+            return connection;
         } catch (SQLException e) {
-            throw new Error(e);
+            try {
+                Connection connection = DriverManager.getConnection(url, username, password);
+                return connection;
+            } catch (SQLException err) {
+                e.printStackTrace();
+            }
+            return null;
         }
     }
 
