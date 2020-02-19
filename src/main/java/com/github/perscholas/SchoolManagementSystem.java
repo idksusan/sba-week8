@@ -1,6 +1,7 @@
 package com.github.perscholas;
 
 import com.github.perscholas.dao.StudentDao;
+import com.github.perscholas.service.StudentService;
 import com.github.perscholas.utils.IOConsole;
 
 import java.util.ArrayList;
@@ -13,7 +14,7 @@ public class SchoolManagementSystem implements Runnable {
     public void run() {
         String smsDashboardInput = getSchoolManagementSystemDashboardInput();
         if ("login".equals(smsDashboardInput)) {
-            StudentDao studentService = null; // TODO - get literal value
+            StudentDao studentService = new StudentService(DatabaseConnection.MARIADB); // TODO - get literal value
             String studentEmail = console.getStringInput("Enter your email:");
             String studentPassword = console.getStringInput("Enter your password:");
             Boolean isValidLogin = studentService.validateStudent(studentEmail, studentPassword);
