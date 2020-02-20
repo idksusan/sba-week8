@@ -15,14 +15,14 @@ public interface StudentDao {
      * reads the student table in database
      * @return database data as a List<Student>
      */
-    List<StudentInterface> getAllStudents() throws SQLException;
+    List<StudentInterface> getAllStudents();
 
     /**
      * takes a Student’s email as a String and parses the student list for a Student with that email and returns a Student Object.
      * @param studentEmail - student's email to be parsed
      * @return the student list of a Student with respective `studentEmail`
      */
-    StudentInterface getStudentByEmail(String studentEmail) throws SQLException;
+    StudentInterface getStudentByEmail(String studentEmail);
 
     /**
      * This method takes two parameters: the first one is the user email and the second one is the password from the user input.
@@ -30,7 +30,7 @@ public interface StudentDao {
      * @param password - password student uses to log in
      * @return `true` if a student was found; else `false`
      */
-    Boolean validateStudent(String studentEmail, String password) throws SQLException;
+    Boolean validateStudent(String studentEmail, String password);
 
     /**
      * After a successful student validation, this method takes a Student’s email and a Course ID.

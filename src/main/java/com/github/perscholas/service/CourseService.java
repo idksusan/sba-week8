@@ -20,7 +20,7 @@ public class CourseService implements CourseDao {
     public CourseService() {this(DatabaseConnection.MARIADB);}
 
     @Override
-    public List<CourseInterface> getAllCourses() throws SQLException {
+    public List<CourseInterface> getAllCourses(){
         ResultSet result = dbc.executeQuery("SELECT * FROM `course`");
         List<CourseInterface> list = new ArrayList<>();
         try {
