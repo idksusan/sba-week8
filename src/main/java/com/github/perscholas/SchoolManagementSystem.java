@@ -69,15 +69,17 @@ public class SchoolManagementSystem implements Runnable {
 
     private Integer getCourseRegistryInput() {
         CourseService courseService = new CourseService();
-        List<Integer> listOfCoursesIds = courseService.getAllCourses().stream().map(c -> c.getId()).collect(Collectors.toList()); // TODO - instantiate and populate `listOfCourseIds`
+        List<Integer> listOfCoursesIds = courseService.getAllCourses()
+                .stream()
+                .map(c -> c.getId())
+                .collect(Collectors.toList()); // TODO - instantiate and populate `listOfCourseIds`
+        List<String> listOfCourseNames = courseService.getAllCourses()
+                .stream()
+                .map(c -> c.getName())
+                .collect(Collectors.toList());
         return console.getIntegerInput(new StringBuilder()
                 .append("Welcome to the Course Registration Dashboard!")
                 .append("\nFrom here, you can select any of the following options:")
-                .append("\n\t" + listOfCoursesIds
-                        .toString()
-                        .replaceAll("\\[", "")
-                        .replaceAll("\\]", "")
-                        .replaceAll(", ", "\n\t"))
-                .toString());
+                .append("\n\t" + listOfCoursesIds.toString()).toString());
     }
 }
