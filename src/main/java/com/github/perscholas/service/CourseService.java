@@ -29,6 +29,7 @@ public class CourseService implements CourseDao {
                 String name = result.getString("name");
                 String instructor = result.getString("instructor");
                 CourseInterface course = new Course(id, name, instructor);
+                list.add(course);
             }
         } catch (SQLException se) {
             throw new Error(se);
@@ -36,10 +37,10 @@ public class CourseService implements CourseDao {
         return list;
     }
 
-    public List<Integer> getAllCourseIds() throws SQLException {
+    public List<String> getAllCourseIds() throws SQLException {
         return getAllCourses()
                 .stream()
-                .map(CourseInterface::getId)
+                .map(course -> course.getId() + " - " + course.getName())
                 .collect(Collectors.toList());
     }
 }

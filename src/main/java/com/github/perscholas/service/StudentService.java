@@ -68,9 +68,10 @@ public class StudentService implements StudentDao {
 
     @Override
     public void registerStudentToCourse(String studentEmail, int courseId) {
-        dbc.executeStatement("insert into Studentregistration(email, id) values('"
-                + studentEmail + "', '"
-                + courseId + "'");
+        String sqlStatement = "INSERT INTO studentregistration VALUES('"
+                + studentEmail + "','"
+                + courseId + "')";
+        dbc.executeStatement(sqlStatement);
     }
 
     @Override
