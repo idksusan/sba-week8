@@ -2,9 +2,7 @@ package com.github.perscholas.service;
 
 import com.github.perscholas.DatabaseConnection;
 import com.github.perscholas.dao.StudentDao;
-import com.github.perscholas.model.CourseInterface;
-import com.github.perscholas.model.Student;
-import com.github.perscholas.model.StudentInterface;
+import com.github.perscholas.model.*;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -76,6 +74,23 @@ public class StudentService implements StudentDao {
 
     @Override
     public List<CourseInterface> getStudentCourses(String studentEmail) {
+        ResultSet result = dbc.executeQuery("SELECT c.id, name, instructor " +
+                "FROM course c, studentregistration sr " +
+                "WHERE c.id = sr.id " +
+                "AND sr.email = '" + studentEmail + "'");
+        List<CourseInterface> list = new ArrayList<>();
+        try {
+            while (result.next()) {
+                Integer id = result.getInt("id");
+                String name = result.getString("name");
+                String instructor = result.getString("instructor");
+                CourseInterface course = new Course(id, name, instructor);
+                list.add(course);
+                return list;
+            }
+        } catch (SQLException se) {
+            throw new Error(se);
+        }
         return null;
     }
 }

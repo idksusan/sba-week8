@@ -30,10 +30,10 @@ public class SchoolManagementSystem implements Runnable {
                         studentService.registerStudentToCourse(studentEmail, courseId);
                         String studentCourseViewInput = getCourseViewInput();
                         if ("view".equals(studentCourseViewInput)) {
-                            List<CourseInterface> courses =  new ArrayList<>(); // TODO - Instantiate and populate `courses`;
+                            List<CourseInterface> courses =  studentService.getStudentCourses(studentEmail); // TODO - Instantiate and populate `courses`;
                             console.println(new StringBuilder()
                                     .append("[ %s ] is registered to the following courses:")
-                                    .append("\n\t" + courses)
+                                    .append("\n\t" + courses.toString())
                                     .toString(), studentEmail);
                         }
                     }
@@ -69,17 +69,13 @@ public class SchoolManagementSystem implements Runnable {
 
     private Integer getCourseRegistryInput() {
         CourseService courseService = new CourseService();
-        List<Integer> listOfCoursesIds = courseService.getAllCourses()
-                .stream()
-                .map(c -> c.getId())
-                .collect(Collectors.toList()); // TODO - instantiate and populate `listOfCourseIds`
-        List<String> listOfCourseNames = courseService.getAllCourses()
-                .stream()
-                .map(c -> c.getName())
-                .collect(Collectors.toList());
-        return console.getIntegerInput(new StringBuilder()
-                .append("Welcome to the Course Registration Dashboard!")
-                .append("\nFrom here, you can select any of the following options:")
-                .append("\n\t" + listOfCoursesIds.toString()).toString());
+        List<String> listOfCourses = courseService.getAllCourseIdsAndNames(); // TODO - instantiate and populate `listOfCourseIds`
+        return console.getIntegerInput("Welcome to the Course Registration Dashboard!" +
+                "\nFrom here, you can select any of the following options:" +
+                "\n\t" + listOfCourses
+                .toString()
+                .replaceAll("\\[", "")
+                .replaceAll("\\]", "")
+                .replaceAll(", ", "\n\t"));
     }
 }

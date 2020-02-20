@@ -37,7 +37,7 @@ public class CourseService implements CourseDao {
         return list;
     }
 
-    public List<String> getAllCourseIds() throws SQLException {
+    public List<String> getAllCourseIdsAndNames(){
         return getAllCourses()
                 .stream()
                 .map(course -> course.getId() + " - " + course.getName())
